@@ -17,3 +17,5 @@ docker tag tclgrafana:0.1  mgmtserver.ipc3dev.com:5000/tclgrafana:0.1
 docker push kumarabby/dashdemo:0.1
 
 go get -u github.com/tsenart/vegeta
+docker tag local-image:tagname new-repo:tagname
+docker push new-repo:tagname
