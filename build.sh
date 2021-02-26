@@ -15,3 +15,5 @@ go build
 docker build -t kumarabby/dashdemo:0.1 -f Dockerfile .
 docker tag tclgrafana:0.1  mgmtserver.ipc3dev.com:5000/tclgrafana:0.1
 docker push kumarabby/dashdemo:0.1
+
+go get -u github.com/tsenart/vegeta
