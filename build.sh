@@ -32,3 +32,5 @@ docker push new-repo:tagname
 
 echo "GET http://10.8.30.29" | vegeta attack -header "Host:helloworld-go.serverless.cdn.com" -duration=5s -rate=500  | tee results.bin | vegeta report
 echo "GET http://10.8.30.29" | vegeta attack -header "Host:helloworld-go.serverless.cdn.com" -duration=5s | tee results.bin | vegeta report
+
+http://195.219.251.74:8080/gitlab/ipc3/promtrigger-controller-new.git
