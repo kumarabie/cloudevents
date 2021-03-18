@@ -28,3 +28,7 @@ docker push new-repo:tagname
     -H "Ce-Source: dev.knative.samples/helloworldsource" \
     -H "Content-Type: application/json" \
     -d '{"msg":"Hello World from the curl pod."}'
+
+
+echo "GET http://10.8.30.29" | vegeta attack -header "Host:helloworld-go.serverless.cdn.com" -duration=5s -rate=500  | tee results.bin | vegeta report
+echo "GET http://10.8.30.29" | vegeta attack -header "Host:helloworld-go.serverless.cdn.com" -duration=5s | tee results.bin | vegeta report
