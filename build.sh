@@ -34,3 +34,29 @@ echo "GET http://10.8.30.29" | vegeta attack -header "Host:helloworld-go.serverl
 echo "GET http://10.8.30.29" | vegeta attack -header "Host:helloworld-go.serverless.cdn.com" -duration=5s | tee results.bin | vegeta report
 
 http://195.219.251.74:8080/gitlab/ipc3/promtrigger-controller-new.git
+
+global:
+  resolve_timeout: 5m
+route:
+  group_by: ['cluster', 'alertname', 'namespace', 'job', 'pod_name']
+  group_wait: 30s
+  group_interval: 10m
+  repeat_interval: 10m
+  receiver: email_config
+  routes:
+  - match:
+      alertname: Watchdog
+    repeat_interval: 5m
+    receiver: watchdog
+receivers:
+- name: email_config
+  email_configs:
+  - to: gayathri.menath@tatacommunications.com
+    from: nha.kubernetes.cluster@tatacommunications.com
+    send_resolved: true
+    smarthost: 10.72.217.36:25
+    require_tls: False
+    headers:
+      Subject: 'Sandbox-mgmt There are {{if gt (.Alerts.Firing | len) 0 }} {{ .Alerts.Firing | len }} firing  alert(s) {{ end }} {{ if and (gt (.Alerts.Firing | len) 0) (gt (.Alerts.Resolved | len) 0 ) }} and {{ end }}{{if gt (.Alerts.Resolved | len) 0 }} {{ .Alerts.Resolved | len }} resolved alert(s) {{ end }}'
+    html: "<HTML><BODY> <b>Alerts:</b> <ol> {{ range $index,$_ :=  .Alerts }}<li><b> Status:</b> {{ .Status }}  <br><br><b>AlertId: </b> {{ .Fingerprint }}.{{ .StartsAt.Format `20060102150405` }} <br> <b>Labels:</b> {{ range $key,$value := .Labels }}{{$key}}={{$value}},{{ end }}<br> <br><b> Annotations:</b> {{ range $key,$value := .Annotations }}{{$key}}={{$value}},{{ end }} <br><br><b> StartsAt:</b> {{ .StartsAt }}<br><br><b>CI:</b> DELGCCNHADCLMGTM1 <br><br><b>Customer:</b>  NHA  <br> </li><br> {{end}}</BODY></HTML>"
+
