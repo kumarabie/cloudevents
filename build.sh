@@ -60,3 +60,19 @@ receivers:
       Subject: 'Sandbox-mgmt There are {{if gt (.Alerts.Firing | len) 0 }} {{ .Alerts.Firing | len }} firing  alert(s) {{ end }} {{ if and (gt (.Alerts.Firing | len) 0) (gt (.Alerts.Resolved | len) 0 ) }} and {{ end }}{{if gt (.Alerts.Resolved | len) 0 }} {{ .Alerts.Resolved | len }} resolved alert(s) {{ end }}'
     html: "<HTML><BODY> <b>Alerts:</b> <ol> {{ range $index,$_ :=  .Alerts }}<li><b> Status:</b> {{ .Status }}  <br><br><b>AlertId: </b> {{ .Fingerprint }}.{{ .StartsAt.Format `20060102150405` }} <br> <b>Labels:</b> {{ range $key,$value := .Labels }}{{$key}}={{$value}},{{ end }}<br> <br><b> Annotations:</b> {{ range $key,$value := .Annotations }}{{$key}}={{$value}},{{ end }} <br><br><b> StartsAt:</b> {{ .StartsAt }}<br><br><b>CI:</b> DELGCCNHADCLMGTM1 <br><br><b>Customer:</b>  NHA  <br> </li><br> {{end}}</BODY></HTML>"
 
+kind: ESTrigger
+apiVersion: functions.tatacommunications.com/v1alpha2
+metadata:
+  name: function-not-found
+  namespace: efk-alerting
+spec:
+  index: cdn-cloud-01-2021.03.26-*
+  ruleType: frequency
+  numEvents: 1
+  timeUnit: hours
+  timeframe: 24
+  filterType: match_phrase
+  matchPhrase:
+    filterKey: log
+    filterValue: "Updated Cache"
+  funcName: helloworld-go
