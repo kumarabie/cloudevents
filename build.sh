@@ -76,3 +76,25 @@ spec:
     filterKey: log
     filterValue: "Updated Cache"
   funcName: helloworld-go
+  
+  
+  
+  
+  GET logstash-2019.12.05/_search?size=10000
+
+{
+
+  "query": {
+
+    "match_phrase": {
+
+      
+
+      
+
+    "log": "vm.max_map_count = 262144"
+
+        }
+
+  }
+  
