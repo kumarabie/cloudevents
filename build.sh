@@ -98,3 +98,10 @@ spec:
 
   }
   
+  "log": {
+
+        "value": "20.9",
+
+        "flags" : "INTERSECTION|COMPLEMENT|EMPTY"
+
+      }
