@@ -105,3 +105,5 @@ spec:
         "flags" : "INTERSECTION|COMPLEMENT|EMPTY"
 
       }
+      
+   ansible-playbook -i inventory/optimus-dev/hosts.ini cluster.yml  --tags=monitoring --become --become-user=root --ask-pass -vvv
