@@ -117,3 +117,4 @@ spec:
                                              
                                              
   CGO_ENABLED=0 python3 setup.py install
+  pip install "setuptools>=11.3"
