@@ -114,3 +114,6 @@ spec:
             ce_headers, ce_body = to_structured(event)
             response = requests.post(url, data=ce_body, headers=ce_headers,
                                              proxies=proxies, timeout=self.timeout)
+                                             
+                                             
+  CGO_ENABLED=0 python3 setup.py install
