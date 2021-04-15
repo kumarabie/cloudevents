@@ -107,3 +107,10 @@ spec:
       }
       
    ansible-playbook -i inventory/optimus-dev/hosts.ini cluster.yml  --tags=monitoring --become --become-user=root --ask-pass -vvv
+   
+   from cloudevents.http import CloudEvent, to_structured
+   #code changed for cloudevent support
+            event = CloudEvent(headers, json.dumps(payload, cls=DateTimeEncoder))
+            ce_headers, ce_body = to_structured(event)
+            response = requests.post(url, data=ce_body, headers=ce_headers,
+                                             proxies=proxies, timeout=self.timeout)
