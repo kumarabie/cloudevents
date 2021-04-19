@@ -118,3 +118,18 @@ spec:
                                              
   CGO_ENABLED=0 python3 setup.py install
   pip install "setuptools>=11.3"
+  
+  
+//python alerts.py changes
+attributes = {
+        "type": "com.event.abhinav",
+        "source": "estrigger-controller",
+        "event": "com.tatacommunications.elastalert.matched",
+        "subject": "apis/functions.tatacommunications.com/v1alpha2/namespaces/serverless/estrigger/function_exhation",
+        "target" : "http://%s.%s.svc.cluster.local?_%s_%s,esTrigger.Spec.FuncName, esTrigger.Namespace, esTrigger.Name, esTrigger.Namespace",
+    }
+elastalert_logger.info('sending cloudevent id :%s ,from source :%s, subject :%s, target :%s:' % (
+       event['id'], event['source'], event['subject'], event['target']))
+elastalert_logger.info('finished sending cloudevent id: %s'% (event['id']))
+elasalert_logger.info('failed to send cloudevent: %e, id: %s, source: %s, subject: %s, target: %s:' % (
+     error,event['id'], event['source'], event['subject'], event['target']))
