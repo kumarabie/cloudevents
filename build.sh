@@ -133,3 +133,18 @@ elastalert_logger.info('sending cloudevent id :%s ,from source :%s, subject :%s,
 elastalert_logger.info('finished sending cloudevent id: %s'% (event['id']))
 elasalert_logger.info('failed to send cloudevent: %e, id: %s, source: %s, subject: %s, target: %s:' % (
      error,event['id'], event['source'], event['subject'], event['target']))
+     
+     
+     
+     
+    urlsplit=url.split('_')
+    esTriggerNamespace=urlsplit[2]
+    esTriggername=urlsplit[1]
+    functionsplit=urlsplit[0].split('.')
+    functionname=functionsplit[0].split('/')[-1]
+    functionnamespace=functionsplit[1]
+    print("functionname:",functionname,"functionnamespace:",functionnamespace,"estriggername:",esTriggername,"estriggernamespace:",esTriggerNamespace)
+    target=urlsplit[0].rstrip('?')
+    print("target:",target)
+    subject="apis/functions.tatacommunications.com/v1alpha2/namespaces/"+functionnamespace+"/estriggers/"+functionname
+    print("subject:", subject)
