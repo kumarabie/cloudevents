@@ -148,3 +148,20 @@ elasalert_logger.info('failed to send cloudevent: %e, id: %s, source: %s, subjec
     print("target:",target)
     subject="apis/functions.tatacommunications.com/v1alpha2/namespaces/"+functionnamespace+"/estriggers/"+functionname
     print("subject:", subject)
+    
+    
+    
+ prom_obj=PrometheusWrapper()
+ body = {'rule_name': functionname,
+            'event_source': "estrigger-controller",
+            'event_subject': "apis/functions.tatacommunications.com/v1alpha2/namespaces" + functionnamespace,
+            'event_type' :"com.tatacommunications.esrule.matched"
+    }
+ prom_obj.metrics_writeback("cloudevent", body)
+ 
+ self.prom_event_count = prometheus_client.Counter('elastalert_event_count','Number of events sent',['rule_name','event_source',
+                                                                                                            'event_subject','event_type'],)
+
+    
+            
+            
