@@ -160,7 +160,11 @@ elasalert_logger.info('failed to send cloudevent: %e, id: %s, source: %s, subjec
  prom_obj.metrics_writeback("cloudevent", body)
  
  self.prom_event_count = prometheus_client.Counter('elastalert_event_count','Number of events sent',['rule_name','event_source',
-                                                                                                            'event_subject','event_type'],)
+                                                                                                            'event_subject','event_type'])
+                                                                                                            
+             elif doc_type =='cloudevent':
+                self.prom_event_count.labels(body['rule_name']).inc()
+                                                                                                            
 
     
             
